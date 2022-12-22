@@ -1123,6 +1123,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "npezza93_tree-sitter-tags"
+version = "0.25.0"
+dependencies = [
+ "memchr",
+ "regex",
+ "streaming-iterator",
+ "thiserror 2.0.9",
+ "tree-sitter",
+]
+
+[[package]]
 name = "objc-sys"
 version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1814,6 +1825,7 @@ dependencies = [
  "lazy_static",
  "log",
  "memchr",
+ "npezza93_tree-sitter-tags",
  "pretty_assertions",
  "rand",
  "regex",
@@ -1833,7 +1845,6 @@ dependencies = [
  "tree-sitter-generate",
  "tree-sitter-highlight",
  "tree-sitter-loader",
- "tree-sitter-tags",
  "tree-sitter-tests-proc-macro",
  "unindent",
  "url",
@@ -1900,6 +1911,7 @@ dependencies = [
  "indoc",
  "lazy_static",
  "libloading",
+ "npezza93_tree-sitter-tags",
  "once_cell",
  "path-slash",
  "regex",
@@ -1909,19 +1921,7 @@ dependencies = [
  "tempfile",
  "tree-sitter",
  "tree-sitter-highlight",
- "tree-sitter-tags",
  "url",
-]
-
-[[package]]
-name = "tree-sitter-tags"
-version = "0.25.0"
-dependencies = [
- "memchr",
- "regex",
- "streaming-iterator",
- "thiserror 2.0.9",
- "tree-sitter",
 ]
 
 [[package]]

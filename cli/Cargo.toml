@@ -68,7 +68,7 @@ tree-sitter-generate.workspace = true
 tree-sitter-config.workspace = true
 tree-sitter-highlight.workspace = true
 tree-sitter-loader.workspace = true
-tree-sitter-tags.workspace = true
+npezza93_tree-sitter-tags.workspace = true
 
 [dev-dependencies]
 encoding_rs = "0.8.35"

@@ -21,7 +21,7 @@ workspace = true
 
 [features]
 wasm = ["tree-sitter/wasm"]
-default = ["tree-sitter-highlight", "tree-sitter-tags"]
+default = ["tree-sitter-highlight", "npezza93_tree-sitter-tags"]
 
 [dependencies]
 anyhow.workspace = true
@@ -42,4 +42,4 @@ url.workspace = true
 
 tree-sitter = { workspace = true }
 tree-sitter-highlight = { workspace = true, optional = true }
-tree-sitter-tags = { workspace = true, optional = true }
+npezza93_tree-sitter-tags = { workspace = true, optional = true }

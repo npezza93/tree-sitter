@@ -35,6 +35,7 @@ pub struct TagsConfiguration {
     c_syntax_type_names: Vec<*const u8>,
     capture_map: HashMap<u32, NamedCapture>,
     doc_capture_index: Option<u32>,
+    metadata_capture_index: Option<u32>,
     name_capture_index: Option<u32>,
     ignore_capture_index: Option<u32>,
     local_scope_capture_index: Option<u32>,
@@ -62,6 +63,7 @@ pub struct Tag {
     pub span: Range<Point>,
     pub utf16_column_range: Range<usize>,
     pub docs: Option<String>,
+    pub metadata: Option<String>,
     pub is_definition: bool,
     pub syntax_type_id: u32,
 }
@@ -138,6 +140,7 @@ impl TagsConfiguration {
         let mut capture_map = HashMap::new();
         let mut syntax_type_names = Vec::new();
         let mut doc_capture_index = None;
+        let mut metadata_capture_index = None;
         let mut name_capture_index = None;
         let mut ignore_capture_index = None;
         let mut local_scope_capture_index = None;
@@ -147,6 +150,7 @@ impl TagsConfiguration {
                 "name" => name_capture_index = Some(i as u32),
                 "ignore" => ignore_capture_index = Some(i as u32),
                 "doc" => doc_capture_index = Some(i as u32),
+                "metadata" => metadata_capture_index = Some(i as u32),
                 "local.scope" => local_scope_capture_index = Some(i as u32),
                 "local.definition" => local_definition_capture_index = Some(i as u32),
                 "local.reference" | "" => continue,
@@ -233,6 +237,7 @@ impl TagsConfiguration {
             c_syntax_type_names,
             capture_map,
             doc_capture_index,
+            metadata_capture_index,
             name_capture_index,
             ignore_capture_index,
             local_scope_capture_index,
@@ -398,6 +403,7 @@ where
 
                 let mut name_node = None;
                 let mut doc_nodes = Vec::new();
+                let mut metadata_node = None;
                 let mut tag_node = None;
                 let mut syntax_type_id = 0;
                 let mut is_definition = false;
@@ -420,6 +426,8 @@ where
                         name_node = Some(capture.node);
                     } else if index == self.config.doc_capture_index {
                         doc_nodes.push(capture.node);
+                    } else if index == self.config.metadata_capture_index {
+                        metadata_node = Some(capture.node);
                     }
 
                     if let Some(named_capture) = self.config.capture_map.get(&capture.index) {
@@ -502,6 +510,13 @@ where
                             }
                         }
 
+                        let mut metadata = None;
+                        if let Some(metadata_node) = metadata_node {
+                            if let Ok(content) = str::from_utf8(&self.source[metadata_node.byte_range()]) {
+                                metadata = Some(content.to_string());
+                            }
+                        }
+
                         let rng = tag_node.byte_range();
                         let range = rng.start.min(name_range.start)..rng.end.max(name_range.end);
                         let span = name_node.start_position()..name_node.end_position();
@@ -552,6 +567,7 @@ where
                             span,
                             utf16_column_range,
                             docs,
+                            metadata,
                             is_definition,
                             syntax_type_id,
                         };
@@ -598,6 +614,7 @@ impl Tag {
             utf16_column_range: 0..0,
             range: usize::MAX..usize::MAX,
             docs: None,
+            metadata: None,
             is_definition: false,
             syntax_type_id: 0,
         }

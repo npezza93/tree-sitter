@@ -151,4 +151,4 @@ tree-sitter-generate = { version = "0.25.0", path = "./cli/generate" }
 tree-sitter-loader = { version = "0.25.0", path = "./cli/loader" }
 tree-sitter-config = { version = "0.25.0", path = "./cli/config" }
 tree-sitter-highlight = { version = "0.25.0", path = "./highlight" }
-tree-sitter-tags = { version = "0.25.0", path = "./tags" }
+npezza93_tree-sitter-tags = { version = "0.25.0", path = "./tags" }
